@@ -1,12 +1,20 @@
-import './App.css';
-import TaskItemList from './TaskItems';
+import NavBar from './components/NavBar';
+import CreateTaskPage from './pages/CreateTaskPage';
+import TasksPage from './pages/TasksPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <TaskItemList />
-    </div>
+    <BrowserRouter>
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/create" element={<CreateTaskPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
