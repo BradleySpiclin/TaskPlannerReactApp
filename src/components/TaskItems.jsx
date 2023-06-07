@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getTaskItems } from '../services/api';
+import TaskItemsTable from './TaskItemsTable';
 
-function TaskItemList() {
+function TaskItems() {
   const [taskItems, setTaskItems] = useState([]);
 
   useEffect(() => {
@@ -20,14 +21,9 @@ function TaskItemList() {
 
   return (
     <div>
-      <h1>Task Items</h1>
-      <ul>
-        {taskItems.map((taskItem) => (
-          <li key={taskItem.id}>Unit code: {taskItem.unitCode} name : {taskItem.name} comments: {taskItem.comments} due date: {taskItem.dueDate}</li>
-        ))}
-      </ul>
+      <TaskItemsTable taskItems={taskItems} /> {/* Render the TaskItemsTable component */}
     </div>
   );
 }
 
-export default TaskItemList;
+export default TaskItems;
