@@ -1,12 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const NavBar = () => {
   return (
     <nav>
-        <p>Navigation Bar goes here!</p>
+      <p>Procrastinot</p>
       <ul>
-        <li><a href="/tasks">Task Overview</a></li>
-        <li><a href="/create">Create Task</a></li>
+        <li>
+          <a href="/tasks">Task Overview</a>
+        </li>
+        <li>
+          <a href="/create">Create Task</a>
+        </li>
       </ul>
     </nav>
   );

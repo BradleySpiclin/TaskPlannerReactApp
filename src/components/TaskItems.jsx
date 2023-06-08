@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { getTaskItems } from '../services/api';
-import TaskItemsTable from './TaskItemsTable';
+import React, { useEffect, useState } from "react";
+import { getTasks } from "../services/api";
+import TaskTable from "./TaskTable";
 
 function TaskItems() {
   const [taskItems, setTaskItems] = useState([]);
@@ -11,17 +11,17 @@ function TaskItems() {
 
   const fetchTaskItems = async () => {
     try {
-      const response = await getTaskItems();
+      const response = await getTasks();
       setTaskItems(response.data);
-      console.log('Task Items:', response.data); // Log the response data
+      console.log("Task Items:", response.data); // Log the response data
     } catch (error) {
-      console.log('Error fetching task items:', error);
+      console.log("Error fetching task items:", error);
     }
   };
 
   return (
     <div>
-      <TaskItemsTable taskItems={taskItems} /> {/* Render the TaskItemsTable component */}
+      <TaskTable taskItems={taskItems} setTaskItems={setTaskItems} />
     </div>
   );
 }

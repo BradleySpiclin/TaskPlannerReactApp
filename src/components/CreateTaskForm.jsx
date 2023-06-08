@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import { createTaskItem } from '../services/api';
+import React, { useState } from "react";
+import { createTask } from "../services/api";
 
-function CreateTaskItemForm() {
-    const [unitCode, setUnitCode] = useState('');
-    const [name, setName] = useState('');
-    const [comments, setComments] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+function CreateTaskForm() {
+  const [unitCode, setUnitCode] = useState("");
+  const [name, setName] = useState("");
+  const [comments, setComments] = useState("");
+  const [dueDate, setDueDate] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const taskItem = {
-        unitCode,
-        name,
-        comments,
-        dueDate: new Date(dueDate)
+      unitCode,
+      name,
+      comments,
+      dueDate: new Date(dueDate),
+      isComplete: false,
+      completedDate: null,
     };
     try {
-        const response = await createTaskItem(taskItem);
-        console.log('Task item created:', response.data); // Log the response data or handle success
-        // Reset form fields
-        setUnitCode('');
-        setName('');
-        setComments('');
-        setDueDate('');
+      const response = await createTask(taskItem);
+      console.log("Task item created:", response.data); // Log the response data or handle success
+      // Reset form fields
+      setUnitCode("");
+      setName("");
+      setComments("");
+      setDueDate("");
     } catch (error) {
-        console.log('Error creating task item:', error); // Handle error
-        console.log(taskItem); // Log the error
+      console.log("Error creating task item:", error); // Handle error
+      console.log(taskItem); // Log the error
     }
-};
+  };
 
   return (
     <div>
@@ -80,4 +82,4 @@ function CreateTaskItemForm() {
   );
 }
 
-export default CreateTaskItemForm;
+export default CreateTaskForm;
