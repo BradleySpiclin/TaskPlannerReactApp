@@ -1,11 +1,11 @@
 import React from 'react';
-import CreateTaskItemForm from '../components/CreateTaskItemForm';
+import CreateTaskForm from '../components/CreateTaskForm';
 
 const CreateTaskPage = () => {
   return (
     <div>
         <h2>Creating new task here</h2>
-        <CreateTaskItemForm />
+        <CreateTaskForm />
     </div>
   );
 };
