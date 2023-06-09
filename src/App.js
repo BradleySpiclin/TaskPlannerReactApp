@@ -10,6 +10,7 @@ const App = () => {
       <div>
         <NavBar />
         <Routes>
+          <Route path="/" element={<TasksPage />} /> 
           <Route path="/tasks" element={<TasksPage />} />
           <Route path="/create" element={<CreateTaskPage />} />
           <Route path="/calendar" element={<Calendar />} />

@@ -16,7 +16,6 @@ function CreateTaskForm() {
       comments,
       dueDate: new Date(dueDate),
       isComplete: false,
-      completedDate: null,
     };
 
     try {
