@@ -18,6 +18,7 @@ function CreateTaskForm() {
       isComplete: false,
       completedDate: null,
     };
+
     try {
       const response = await createTask(taskItem);
       console.log("Task item created:", response.data); // Log the response data or handle success

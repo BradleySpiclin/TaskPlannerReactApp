@@ -1,3 +1,4 @@
+import Calendar from './components/Calendar';
 import NavBar from './components/NavBar';
 import CreateTaskPage from './pages/CreateTaskPage';
 import TasksPage from './pages/TasksPage';
@@ -11,6 +12,7 @@ const App = () => {
         <Routes>
           <Route path="/tasks" element={<TasksPage />} />
           <Route path="/create" element={<CreateTaskPage />} />
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </div>
     </BrowserRouter>
