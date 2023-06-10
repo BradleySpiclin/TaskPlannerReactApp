@@ -10,10 +10,12 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
   const [isEditing, setIsEditing] = useState({});
 
   useEffect(() => {
-    if (taskItems.length > 0) {
+    // effect will only be triggered when 'activeTab' is initially 'null'
+    // and not on subsequent 'taskItems' changes
+    if (taskItems.length > 0 && activeTab === null) {
       setActiveTab(taskItems[0].unitCode);
     }
-  }, [taskItems]);
+  }, [taskItems, activeTab]);
 
   const handleTabClick = (unitCode) => {
     setActiveTab(unitCode);
@@ -211,10 +213,13 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
     ? taskItems.filter((taskItem) => taskItem.unitCode === activeTab)
     : taskItems;
 
-  
   // Temporary tab colours 
   const colours = [
-    '#6469DB', '#DB6464', '#64A1DB', '#DB64DB', '#DB8D64',
+    '#6469DB', 
+    '#DB6464', 
+    '#64A1DB', 
+    '#DB64DB', 
+    '#DB8D64',
   ];
 
   return (
@@ -228,7 +233,7 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
             key={unitCode}
             className={`task-tab-item ${unitCode === activeTab ? "active" : ""}`}
             // Set the colour of the tabs 
-            style={{ backgroundColor: colours[index % 10] }}
+            style={{ backgroundColor: colours[index % 5] }}
             onClick={() => handleTabClick(unitCode)}
           >
             {unitCode}
@@ -253,7 +258,7 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
                   <input
                     type="text"
                     name="name"
-                    value={editedTasks[taskItem.id]?.name || taskItem.name}
+                    value={editedTasks[taskItem.id]?.name !== undefined ? editedTasks[taskItem.id]?.name : taskItem.name}
                     onChange={(e) => handleInputChange(e, taskItem.id)}
                   />
                 ) : (
@@ -265,9 +270,7 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
                   <input
                     type="text"
                     name="comments"
-                    value={
-                      editedTasks[taskItem.id]?.comments || taskItem.comments
-                    }
+                    value={editedTasks[taskItem.id]?.comments !== undefined ? editedTasks[taskItem.id]?.comments : taskItem.comments}
                     onChange={(e) => handleInputChange(e, taskItem.id)}
                   />
                 ) : (
