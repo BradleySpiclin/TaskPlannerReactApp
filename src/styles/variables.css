@@ -1,0 +1,18 @@
+/* app wide custom properties */
+:root {
+    --ff-normal: 'Roboto', sans-serif;
+    --fs-body: 1rem;
+    --fs-heading: 2rem;
+    --fs-subheading: 1.25rem;
+
+    --fw-normal: 400;
+    --fw-bold: 700;
+
+    --clr-primary: #685489;
+    --clr-dark: #000;
+    --clr-light: whitesmoke;
+
+    --clr-green: rgba(104, 192, 64, 50%);
+    --clr-orange: rgb(255, 176, 58, 50%);
+    --clr-red: rgb(210, 37, 37, 50%);
+}

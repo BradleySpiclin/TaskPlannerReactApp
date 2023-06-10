@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import CreateTaskPage from './pages/CreateTaskPage';
 import TasksPage from './pages/TasksPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './styles/app.css';
 
 const App = () => {
   return (
