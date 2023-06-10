@@ -211,16 +211,24 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
     ? taskItems.filter((taskItem) => taskItem.unitCode === activeTab)
     : taskItems;
 
+  
+  // Temporary tab colours 
+  const colours = [
+    '#6469DB', '#DB6464', '#64A1DB', '#DB64DB', '#DB8D64',
+  ];
+
   return (
     <div>
       <h1>Task Items</h1>
       <div className="task-tab">
         {Array.from(
           new Set(taskItems.map((taskItem) => taskItem.unitCode))
-        ).map((unitCode) => (
+        ).map((unitCode, index) => (
           <button
             key={unitCode}
-            className={`task-tab ${unitCode === activeTab ? "active" : ""}`}
+            className={`task-tab-item ${unitCode === activeTab ? "active" : ""}`}
+            // Set the colour of the tabs 
+            style={{ backgroundColor: colours[index % 10] }}
             onClick={() => handleTabClick(unitCode)}
           >
             {unitCode}

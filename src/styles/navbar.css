@@ -1,5 +1,5 @@
 .navbar {
-    background-color: rgb(167, 117, 214);
+    background-color: var(--clr-primary);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,9 +7,9 @@
   }
   
   .navbar-title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 24px;
-    color: whitesmoke;
+    font-family: var(--ff-normal);
+    font-size: var(--fs-heading);
+    color: var(--clr-light);
     font-weight: bold;
     margin-right: 200px;
   }
@@ -28,8 +28,8 @@
   }
   
   .navbar-link {
-    font-family: 'Roboto', sans-serif;
-    color: whitesmoke;
+    font-family: var(--ff-normal);
+    color: var(--clr-light);
     text-decoration: none;
   }
   
@@ -38,10 +38,10 @@
   }
   
   .signout-button {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--ff-normal);
     background-color: transparent;
     border: none;
-    color: whitesmoke;
+    color: var(--clr-light);
     cursor: pointer;
     font-size: 20px;
     margin-left: auto; /* Add this line to push the button to the right */
