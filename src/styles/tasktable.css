@@ -1,44 +1,91 @@
 .task-table {
-  width: 100%;
   border-collapse: collapse;
+
+}
+
+.task-table, .task-tab {
+  width: 80rem; /* Set a fixed width for the table */
 }
 
 .task-table th,
 .task-table td {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: none;
+  border: 1px solid var(--clr-table-borders);
 }
 
 .task-table th {
-  background-color: #f2f2f2;
+  background-color: var(--clr-neutral-700);
   text-align: left;
+  color: var(--clr-light);
+
 }
 
 .task-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--clr-table-row-even);
 }
 
+/* Name column */
+.task-table th:nth-child(1),
+.task-table td:nth-child(1) {
+  width: 13.5rem;
+}
+
+/* Comments column */
+.task-table th:nth-child(2),
+.task-table td:nth-child(2) {
+  width: 20rem;
+}
+
+/* Status column */
+.task-table th:nth-child(3),
+.task-table td:nth-child(3) {
+  width: 12.5rem;
+}
+
+/* Due date column */
+.task-table th:nth-child(4),
+.task-table td:nth-child(4) {
+  width: 12rem;
+}
+
+/* Actions column */
+.task-table th:nth-child(5),
+.task-table td:nth-child(5) {
+  width: 12rem;
+}
+
+.actionButtonsTableCell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+
 .task-table tfoot {
-  background-color: #f2f2f2;
+  background-color: var(--clr-table-row-foot);
 }
 
 .task-table tfoot td {
   font-weight: bold;
 }
 
-.task-table-actions {
+/* .task-table-actions {
   display: flex;
   justify-content: space-between;
-}
+} */
 
-.task-table-actions button {
+/* .task-table-actions button {
   margin-right: 10px;
-}
+} */
 
 /* Highlight the current tab */
 .task-tab-item {
   min-width: 8rem;
   border: none;
+  border-right: 0.05px solid var(--clr-neutral-300);
+  border-top: 0.05px solid var(--clr-neutral-300);
   border-radius: 6px 6px 0 0;
   color: var(--clr-light);
   font-size: var(--fs-subheading);
@@ -46,14 +93,68 @@
   cursor: pointer;
 }
 
-.task-tab-item.active {
-  background-color: #ccc;
+.task-tab-item:hover {
+  filter: brightness(80%); /* Adjust the brightness value as needed */
+}
 
+.task-tab-item.active {
   width: 12.5rem;
   padding-top: 14px;
   box-shadow: 0 0 4px rgba(64, 63, 63, 0.3);
+  filter: none; /* Remove the hover filter for the active tab */
 }
 
-.task-tab-item:hover {
-  filter: brightness(95%); /* Adjust the brightness value as needed */
+.overdue {
+  background-color: var(--clr-over-due);
+  color: var(--clr-light);
 }
+
+.due-soon {
+  background-color: var(--clr-due-soon);
+  color: var(--clr-light);
+
+}
+
+.active {
+  background-color: var(--clr-active);
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon:hover {
+  transform: scale(1.2); /* Scale up the icon on hover */
+  transition: width 0.15s, height 0.15s;
+}
+
+.iconButton td {
+  overflow: hidden; /* Prevents height change on hover */
+}
+
+/* Line through just the word */
+/* .completed p {
+  text-decoration: line-through;
+  text-decoration-color: var(--clr-over-due);
+  text-decoration-thickness: 0.10em;
+} */
+
+/* Line through entire cell */
+/* .completed {
+  position: relative;
+}
+
+.completed::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: red;
+  transform: translateY(-50%);
+} */

@@ -1,18 +1,38 @@
 /* app wide custom properties */
 :root {
+    /* font families */
     --ff-normal: 'Roboto', sans-serif;
+
+    /* font sizes */
     --fs-body: 1rem;
     --fs-heading: 2rem;
     --fs-subheading: 1.25rem;
 
+    /* font weights */
     --fw-normal: 400;
     --fw-bold: 700;
 
-    --clr-primary: #685489;
-    --clr-dark: #000;
-    --clr-light: whitesmoke;
+    --clr-primary: #5C4A78;
+    /* --clr-primary: #13518B; */
 
-    --clr-green: rgba(104, 192, 64, 50%);
-    --clr-orange: rgb(255, 176, 58, 50%);
-    --clr-red: rgb(210, 37, 37, 50%);
+    --clr-dark: #000000;
+    --clr-neutral-700: #454545;
+    --clr-neutral-500: #808080;
+    --clr-neutral-300: #CCCCCC;
+    --clr-light: #FFFFFF;
+
+    --clr-over-due: #242424;
+    --clr-due-soon: #5C5C5C;
+    --clr-active: #999999; 
+
+    --clr-table-borders: var(--clr-neutral-500);
+    --clr-table-tab-active: var(--clr-neutral-700);
+    --clr-table-tab: var(--clr-neutral-500);
+    --clr-table-row-even: #f0eded;
+    --clr-table-row-odd: rgb(240, 239, 239);
+    --clr-table-row-foot: rgb(240, 239, 239)
+    /* --clr-green: rgba(104, 191, 64, 0.502); 
+    --clr-orange: rgba(255, 176, 58, 0.502); 
+    --clr-red: rgba(210, 37, 37, 0.502);  */
+
 }
