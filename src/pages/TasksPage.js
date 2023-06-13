@@ -1,5 +1,5 @@
 import React from 'react';
-import TaskItems from '../components/TaskItems';
+import TaskItems from '../components/TaskList';
 
 const TasksPage = () => {
   return (

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { updateTask } from "../services/api";
 import { deleteTask } from "../services/api";
-import { fetchTaskById } from "../services/api";
+import { getTaskById } from "../services/api";
 import "../styles/tasktable.css";
 import "../styles/variables.css";
-// temporary icons
-import completeIcon from '../icons/checked.png';
-import deleteIcon from '../icons/delete.png';
-import editIcon from '../icons/edit.png';
-import cancelIcon from '../icons/cancel.png';
 
-const TaskTable = ({ taskItems, setTaskItems }) => {
+// temporary icons
+import completeIcon from "../icons/checked.png";
+import deleteIcon from "../icons/delete.png";
+import editIcon from "../icons/edit.png";
+import cancelIcon from "../icons/cancel.png";
+
+const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
   const [activeTab, setActiveTab] = useState(null);
   const [editedTasks, setEditedTasks] = useState({});
   const [isEditing, setIsEditing] = useState({});
@@ -73,7 +74,10 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
     } else if (daysDiff < 0) {
       const absDaysDiff = Math.abs(daysDiff);
       const days = absDaysDiff > 1 ? "days" : "day";
-      return { text: `Overdue by ${absDaysDiff} ${days}`, className: "overdue" };
+      return {
+        text: `Overdue by ${absDaysDiff} ${days}`,
+        className: "overdue",
+      };
     } else if (daysDiff <= 7) {
       const days = daysDiff > 1 ? "days" : "day";
       return { text: `Due in ${daysDiff} ${days}`, className: "due-soon" };
@@ -149,7 +153,7 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
           [taskId]: false,
         }));
 
-        fetchTaskById(taskId)
+        getTaskById(taskId)
           .then((taskResponse) => {
             const updatedTaskItem = taskResponse.data;
 
@@ -222,14 +226,8 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
     ? taskItems.filter((taskItem) => taskItem.unitCode === activeTab)
     : taskItems;
 
-  // Temporary tab colours 
-  const colours = [
-    '#6469DB', 
-    '#DB6464', 
-    '#64A1DB', 
-    '#DB64DB', 
-    '#DB8D64',
-  ];
+  // Temporary tab colours
+  const colours = ["#6469DB", "#DB6464", "#64A1DB", "#DB64DB", "#DB8D64"];
 
   return (
     <div className="section">
@@ -240,20 +238,22 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
         ).map((unitCode, index) => (
           <button
             key={unitCode}
-            className={`task-tab-item ${unitCode === activeTab ? "active" : ""}`}
+            className={`task-tab-item ${
+              unitCode === activeTab ? "active" : ""
+            }`}
             // Set the colour of the tabs to a colour each
             // style={{ backgroundColor: unitCode === activeTab ? colours[index % 5] : "#909090", }}
-            style={{    
-              // Light grey tabs, dark grey active tab          
+            style={{
+              // Light grey tabs, dark grey active tab
               backgroundColor:
-              unitCode === activeTab
-                // Coloured active tab only
-                // ? colours[index % 5]
+                unitCode === activeTab
+                  ? // Coloured active tab only
+                    // ? colours[index % 5]
 
-                // custom properties from 'variables.css'
-                ? 'var(--clr-table-tab-active)'
-                : "var(--clr-table-tab)"    
-               }}
+                    // custom properties from 'variables.css'
+                    "var(--clr-table-tab-active)"
+                  : "var(--clr-table-tab)",
+            }}
             onClick={() => handleTabClick(unitCode)}
           >
             {unitCode}
@@ -278,7 +278,11 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
                   <input
                     type="text"
                     name="name"
-                    value={editedTasks[taskItem.id]?.name !== undefined ? editedTasks[taskItem.id]?.name : taskItem.name}
+                    value={
+                      editedTasks[taskItem.id]?.name !== undefined
+                        ? editedTasks[taskItem.id]?.name
+                        : taskItem.name
+                    }
                     onChange={(e) => handleInputChange(e, taskItem.id)}
                   />
                 ) : (
@@ -290,17 +294,23 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
                   <input
                     type="text"
                     name="comments"
-                    value={editedTasks[taskItem.id]?.comments !== undefined ? editedTasks[taskItem.id]?.comments : taskItem.comments}
+                    value={
+                      editedTasks[taskItem.id]?.comments !== undefined
+                        ? editedTasks[taskItem.id]?.comments
+                        : taskItem.comments
+                    }
                     onChange={(e) => handleInputChange(e, taskItem.id)}
                   />
                 ) : (
                   taskItem.comments
                 )}
               </td>
-              <td className={getDueDays(taskItem.dueDate, taskItem.isComplete).className}>
-                <p>
-                  {getDueDays(taskItem.dueDate, taskItem.isComplete).text}
-                </p>
+              <td
+                className={
+                  getDueDays(taskItem.dueDate, taskItem.isComplete).className
+                }
+              >
+                <p>{getDueDays(taskItem.dueDate, taskItem.isComplete).text}</p>
               </td>
               <td>
                 {isEditing[taskItem.id] ? (
@@ -319,32 +329,66 @@ const TaskTable = ({ taskItems, setTaskItems }) => {
               <td>
                 {isEditing[taskItem.id] ? (
                   <div className="actionButtonsTableCell">
-                    <button className='iconButton' onClick={() => handleUpdate(taskItem.id)}>
+                    <button
+                      className="iconButton"
+                      onClick={() => handleUpdate(taskItem.id)}
+                    >
                       <img src={editIcon} className="icon" alt="Update Icon" />
                       Update
                     </button>
-                    <button className='iconButton' onClick={() => handleCancel(taskItem.id)}>
-                      <img src={cancelIcon} className="icon" alt="Cancel Icon" />
+                    <button
+                      className="iconButton"
+                      onClick={() => handleCancel(taskItem.id)}
+                    >
+                      <img
+                        src={cancelIcon}
+                        className="icon"
+                        alt="Cancel Icon"
+                      />
                       Cancel
                     </button>
-                    <button className='iconButton' onClick={() => handleDelete(taskItem.id)}>
-                      <img src={deleteIcon} className="icon" alt="Delete Icon" />
+                    <button
+                      className="iconButton"
+                      onClick={() => handleDelete(taskItem.id)}
+                    >
+                      <img
+                        src={deleteIcon}
+                        className="icon"
+                        alt="Delete Icon"
+                      />
                       Delete
                     </button>
                   </div>
                 ) : (
                   <div className="actionButtonsTableCell">
-                    <button className='iconButton' onClick={() => handleEdit(taskItem.id)}>
+                    <button
+                      className="iconButton"
+                      onClick={() => handleEdit(taskItem.id)}
+                    >
                       <img src={editIcon} className="icon" alt="Edit Icon" />
                       Edit
                     </button>
-                    <button className='iconButton' onClick={() => handleStatus(taskItem.id)}>
-                      <img src={completeIcon} className="icon" alt="Complete Icon" />
+                    <button
+                      className="iconButton"
+                      onClick={() => handleStatus(taskItem.id)}
+                    >
+                      <img
+                        src={completeIcon}
+                        className="icon"
+                        alt="Complete Icon"
+                      />
                       {/* Complete */}
                       Done
                     </button>
-                    <button className='iconButton' onClick={() => handleDelete(taskItem.id)}>
-                      <img src={deleteIcon} className="icon" alt="Delete Icon" />
+                    <button
+                      className="iconButton"
+                      onClick={() => handleDelete(taskItem.id)}
+                    >
+                      <img
+                        src={deleteIcon}
+                        className="icon"
+                        alt="Delete Icon"
+                      />
                       Delete
                     </button>
                   </div>
