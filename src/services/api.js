@@ -19,7 +19,7 @@ export const updateCategory = (category) => {
 };
 
 export const deleteCategory = (id) => {
-  return axios.get(`${API_BASE_URL}/Categories/${id}`);
+  return axios.delete(`${API_BASE_URL}/Categories/${id}`);
 };
 
 // Methods for CRUD operations on TaskItems
