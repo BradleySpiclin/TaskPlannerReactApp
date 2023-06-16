@@ -15,7 +15,7 @@ export const createCategory = (category) => {
 };
 
 export const updateCategory = (category) => {
-  return axios.put(`${API_BASE_URL}/Categories/${category.id}`, category);
+  return axios.put(`${API_BASE_URL}/Categories/${category}`);
 };
 
 export const deleteCategory = (id) => {
@@ -40,7 +40,7 @@ export const createTask = (taskItem) => {
 };
 
 export const updateTask = (taskItem) => {
-  return axios.put(`${API_BASE_URL}/TaskItems/${taskItem.id}`, taskItem);
+  return axios.put(`${API_BASE_URL}/TaskItems/${taskItem}`);
 };
 
 export const deleteTask = (id) => {
