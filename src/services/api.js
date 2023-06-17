@@ -40,7 +40,7 @@ export const createTask = (taskItem) => {
 };
 
 export const updateTask = (taskItem) => {
-  return axios.put(`${API_BASE_URL}/TaskItems/${taskItem}`);
+  return axios.put(`${API_BASE_URL}/TaskItems`, taskItem);
 };
 
 export const deleteTask = (id) => {
