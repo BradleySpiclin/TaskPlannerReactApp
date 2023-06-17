@@ -20,12 +20,12 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
     // effect will only be triggered when 'activeTab' is initially 'null'
     // and not on subsequent 'taskItems' changes
     if (taskItems.length > 0 && activeTab === null) {
-      setActiveTab(taskItems[0].unitCode);
+      setActiveTab(taskItems[0].categoryId);
     }
   }, [taskItems, activeTab]);
 
-  const handleTabClick = (unitCode) => {
-    setActiveTab(unitCode);
+  const handleTabClick = (categoryId) => {
+    setActiveTab(categoryId);
   };
 
   const formattedDueDate = (dueDate) => {
@@ -87,25 +87,6 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
     }
   };
 
-  // const handleUpdateTask = (updatedTask) => {
-  //   setTaskItems((prevTaskItems) => {
-  //     return prevTaskItems.map((taskItem) => {
-  //       if (taskItem.id === updatedTask.id) {
-  //         return updatedTask; // Replace the matching task with the updated task
-  //       }
-  //       return taskItem; // Return the unchanged task item
-  //     });
-  //   });
-
-  //   setEditedTasks((prevEditedTasks) => ({
-  //     ...prevEditedTasks,
-  //     [updatedTask.id]: {
-  //       ...prevEditedTasks[updatedTask.id],
-  //       ...updatedTask,
-  //     },
-  //   }));
-  // };
-
   const handleInputChange = (e, taskId) => {
     const { name, value } = e.target;
 
@@ -126,15 +107,15 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
 
     const updatedTask = {
       id: editedTask.id,
-      unitCode: editedTask.unitCode,
       name: editedTask.name,
       comments: editedTask.comments,
       dueDate: editedTask.dueDate,
       isComplete: editedTask.isComplete,
-    };
+      categoryId: editedTask.categoryId,
+    }
 
-    console.log("Updated Task:", updatedTask);
-
+    // console.log("Updated Task:", updatedTask);
+    
     updateTask(updatedTask)
       .then((response) => {
         const updatedTaskFromAPI = response.data;
@@ -169,11 +150,13 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
           .catch((error) => {
             console.log("Fetch Task Error:", error.response.data);
           });
+        // console.log("Task updated successfully");
       })
       .catch((error) => {
         console.log("Update Error:", error.response.data);
       });
   };
+
 
   const handleStatus = (taskId) => {
     setTaskItems((prevTaskItems) => {
@@ -223,43 +206,31 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
   };
 
   const filteredTasks = activeTab
-    ? taskItems.filter((taskItem) => taskItem.unitCode === activeTab)
+    ? taskItems.filter((taskItem) => taskItem.categoryId === activeTab)
     : taskItems;
-
-  // Temporary tab colours
-  const colours = ["#6469DB", "#DB6464", "#64A1DB", "#DB64DB", "#DB8D64"];
 
   return (
     <div className="section">
       <h1>Task Items</h1>
-      <div className="task-tab">
-        {Array.from(
-          new Set(taskItems.map((taskItem) => taskItem.unitCode))
-        ).map((unitCode, index) => (
-          <button
-            key={unitCode}
-            className={`task-tab-item ${
-              unitCode === activeTab ? "active" : ""
-            }`}
-            // Set the colour of the tabs to a colour each
-            // style={{ backgroundColor: unitCode === activeTab ? colours[index % 5] : "#909090", }}
-            style={{
-              // Light grey tabs, dark grey active tab
-              backgroundColor:
-                unitCode === activeTab
-                  ? // Coloured active tab only
-                    // ? colours[index % 5]
 
-                    // custom properties from 'variables.css'
-                    "var(--clr-table-tab-active)"
-                  : "var(--clr-table-tab)",
+      <div className="task-tab">
+        {/* Uses the 'categories' array directly to render the tabs  */}
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            className={`task-tab-item ${category.id === activeTab ? "active" : ""}`}
+            style={{
+              backgroundColor: category.id === activeTab
+                ? "var(--clr-table-tab-active)"
+                : "var(--clr-table-tab)",
             }}
-            onClick={() => handleTabClick(unitCode)}
+            onClick={() => handleTabClick(category.id)}
           >
-            {unitCode}
+            {category.name}
           </button>
         ))}
       </div>
+
       <table className="task-table">
         <thead>
           <tr>
@@ -331,7 +302,7 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
                   <div className="actionButtonsTableCell">
                     <button
                       className="iconButton"
-                      onClick={() => handleUpdate(taskItem.id)}
+                      onClick={() => handleUpdate(taskItem.id)}                      
                     >
                       <img src={editIcon} className="icon" alt="Update Icon" />
                       Update
@@ -377,7 +348,6 @@ const TaskTable = ({ taskItems, setTaskItems, categories, setCategories }) => {
                         className="icon"
                         alt="Complete Icon"
                       />
-                      {/* Complete */}
                       Done
                     </button>
                     <button
